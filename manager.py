@@ -1,6 +1,6 @@
-from logging import Manager
 from rich.console import Console
 from rich.table import Table
+from rich.prompt import Prompt
 from typing import List
 
 from task import Task
@@ -16,6 +16,11 @@ class TaskManager:
         self._tasks.append(task)
         self._next_id += 1
         return task
+
+    def delete_task(self, id: int) -> None:
+        for task in self._tasks:
+            if task.id == id:
+                self._tasks.remove(task)
 
     def get_all(self) -> List[Task]:
         return self._tasks.copy()
@@ -38,11 +43,25 @@ class TaskManager:
 
 
 manager = TaskManager()
-manager.add_task("Включить ноутбук", 2)
-manager.add_task("Начать делать проект", 3)
-manager.add_task("Закончить делать проект", 3)
-manager.add_task("Выключить ноутбук", 1)
+# manager.add_task("Включить ноутбук", 2)
+# manager.add_task("Начать делать проект", 3)
+# manager.add_task("Закончить делать проект", 3)
+# manager.add_task("Выключить ноутбук", 1)
 
 
 if __name__ == "__main__":
-    manager.show_tasks()
+    while True:
+        command = Prompt.ask(
+            "Введи команду", choices=["show", "add", "delete", "stop"], default="show"
+        )
+        if command == "show":
+            manager.show_tasks()
+        elif command == "add":
+            title = Prompt.ask("Введи название")
+            priority = Prompt.ask("Введи приоритет")
+            manager.add_task(title, int(priority))
+        elif command == "delete":
+            id = int(Prompt.ask("Введи id"))
+            manager.delete_task(id)
+        elif command == "stop":
+            break
