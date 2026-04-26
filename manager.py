@@ -21,13 +21,18 @@ class TaskManager:
             if task.id == id:
                 self._tasks.remove(task)
 
-    def check(self, id: int):
+    def check(self, id: int) -> None:
         for task in self._tasks:
             if task.id == id:
                 task.status = not task.status
 
-    # def get_all(self) -> List[Task]:
-    #     return self._tasks.copy()
+    def change_task(self, id: int, title: str, priority: str) -> None:
+        for task in self._tasks:
+            if task.id == id:
+                if title != "":
+                    task.title = title
+                if priority != "":
+                    task.priority = int(priority)
 
     def show_tasks(self) -> None:
         table = Table(title="Мои задачи")
