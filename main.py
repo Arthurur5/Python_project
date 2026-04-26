@@ -14,7 +14,7 @@ if __name__ == "__main__":
     while True:
         command = Prompt.ask(
             "Введи команду",
-            choices=["show", "add", "delete", "stop", "check"],
+            choices=["show", "add", "delete", "stop", "check", "clear_done"],
             default="show",
         )
         if command == "show":
@@ -26,6 +26,8 @@ if __name__ == "__main__":
         elif command == "delete":
             id = int(Prompt.ask("Введи id"))
             manager.delete_task(id)
+        elif command == "clear_done":
+            manager.clear_done_tasks()
         elif command == "check":
             id = int(Prompt.ask("Введи id"))
             manager.check(id)

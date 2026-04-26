@@ -21,6 +21,11 @@ class TaskManager:
             if task.id == id:
                 self._tasks.remove(task)
 
+    def clear_done_tasks(self) -> None:
+        for task in self._tasks:
+            if task.status == True:
+                self._tasks.remove(task)
+
     def check(self, id: int):
         for task in self._tasks:
             if task.id == id:
