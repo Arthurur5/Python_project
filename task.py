@@ -1,3 +1,5 @@
+"""Модуль с классом Task"""
+
 from dataclasses import dataclass
 
 

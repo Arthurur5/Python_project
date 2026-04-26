@@ -4,16 +4,10 @@ from manager import TaskManager
 
 
 manager = TaskManager()
-manager.add_task("Включить ноутбук", 2)
-manager.add_task("Начать делать проект", 3)
-manager.add_task("Закончить делать проект", 3)
-manager.add_task("Выключить ноутбук", 1)
-manager.check(1)
-manager.check(2)
 
 if __name__ == "__main__":
     while True:
-        command = Prompt.ask(
+        command: str = Prompt.ask(
             "Введи команду",
             choices=["show", "add", "delete", "stop", "check", "change", "clear_done"],
             default="show",
