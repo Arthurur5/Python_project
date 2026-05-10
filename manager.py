@@ -6,6 +6,10 @@ from typing import List
 
 from task import Task
 from storage import JSONStorage
+from errors import (
+    InvalidPriorityError,
+    TaskNotFoundError,
+)
 
 
 class TaskManager:
@@ -27,7 +31,9 @@ class TaskManager:
         self._storage.save(self._tasks)
 
     def add_task(self, title: str, priority: int) -> Task:
-        """Добавить задание (название и приоритет)"""
+        """Добавить задание (название и приоритет от 1 до 5)"""
+        if priority > 5 or priority < 1:
+            raise InvalidPriorityError
         task = Task(id=self._next_id, title=title, priority=priority, status=False)
         self._tasks.append(task)
         self._next_id += 1
@@ -39,6 +45,9 @@ class TaskManager:
         for task in self._tasks:
             if task.id == id:
                 self._tasks.remove(task)
+                break
+        else:
+            raise TaskNotFoundError
         self._save_to_storage()
 
     def clear_done_tasks(self) -> None:
@@ -53,6 +62,9 @@ class TaskManager:
         for task in self._tasks:
             if task.id == id:
                 task.status = not task.status
+                break
+        else:
+            raise TaskNotFoundError
         self._save_to_storage()
 
     def change_task(self, id: int, title: str, priority: str) -> None:
@@ -63,6 +75,9 @@ class TaskManager:
                     task.title = title
                 if priority != "":
                     task.priority = int(priority)
+                break
+        else:
+            raise TaskNotFoundError
         self._save_to_storage()
 
     def show_tasks(self) -> None:
