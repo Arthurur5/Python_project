@@ -54,7 +54,7 @@ if __name__ == "__main__":
                     "Введи новое название (enter чтобы оставить)"
                 )
                 new_priority: str = Prompt.ask("Введи приоритет (enter чтобы оставить)")
-                manager.change_task(id, new_title, new_priority)
+                manager.change_task(id, new_title, int(new_priority))
             except TaskNotFoundError:
                 console.print("[red]Нет задачи с таким ID[/red]")
 
