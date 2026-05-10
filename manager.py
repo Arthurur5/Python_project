@@ -80,15 +80,24 @@ class TaskManager:
             raise TaskNotFoundError
         self._save_to_storage()
 
-    def show_tasks(self) -> None:
-        """Вывести на экран задания"""
+    def show_tasks(self, sort_key: str = "id") -> None:
+        """Вывести на экран задачи с сортировкой"""
         table = Table(title="Мои задачи")
         table.add_column("ID", style="cyan")
         table.add_column("Название", style="yellow")
         table.add_column("Приоритет", style="magenta")
         table.add_column("Статус", style="green")
 
-        for task in self._tasks:
+        if sort_key == "id":
+            sorted_tasks: List[Task] = sorted(self._tasks, key=lambda x: x.id)
+        elif sort_key == "priority":
+            sorted_tasks: List[Task] = sorted(
+                self._tasks, key=lambda x: x.priority, reverse=True
+            )
+        elif sort_key == "title":
+            sorted_tasks: List[Task] = sorted(self._tasks, key=lambda x: x.title)
+
+        for task in sorted_tasks:
             table.add_row(
                 str(task.id),
                 task.title,

@@ -15,7 +15,12 @@ if __name__ == "__main__":
             default="show",
         )
         if command == "show":
-            manager.show_tasks()
+            sort_key: str = Prompt.ask(
+                "Сортировка по параметру",
+                choices=["id", "title", "priority"],
+                default="id",
+            )
+            manager.show_tasks(sort_key=sort_key)
 
         elif command == "add":
             try:
