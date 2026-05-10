@@ -67,14 +67,14 @@ class TaskManager:
             raise TaskNotFoundError
         self._save_to_storage()
 
-    def change_task(self, id: int, title: str, priority: int) -> None:
+    def change_task(self, id: int, title: str, priority: str) -> None:
         """Изменить задачу по id (название и приоритет, если пустые, то останутся прежними)"""
         for task in self._tasks:
             if task.id == id:
                 if title != "":
                     task.title = title
                 if priority != "":
-                    task.priority = priority
+                    task.priority = int(priority)
                 break
         else:
             raise TaskNotFoundError

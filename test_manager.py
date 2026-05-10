@@ -51,7 +51,7 @@ class TestTaskManager:
 
     def test_change(self):
         self.manager.add_task("Добавить задачу", 2)
-        self.manager.change_task(1, title="Убрать задачу", priority=4)
+        self.manager.change_task(1, title="Убрать задачу", priority="4")
         assert self.manager.get_all()[0].priority == 4
         assert self.manager.get_all()[0].title == "Убрать задачу"
 

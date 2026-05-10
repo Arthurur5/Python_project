@@ -28,7 +28,9 @@ if __name__ == "__main__":
                 priority: int = int(Prompt.ask("Введи приоритет"))
                 manager.add_task(title, priority)
             except InvalidPriorityError:
-                console.print("[red]Приоритет дожен быть от 1 до 5[/red]")
+                console.print("[red]Приоритет дожен быть числом от 1 до 5[/red]")
+            else:
+                console.print("[green]Задача добавлена![/green]")
 
         elif command == "delete":
             try:
@@ -36,6 +38,8 @@ if __name__ == "__main__":
                 manager.delete_task(id)
             except TaskNotFoundError:
                 console.print("[red]Нет задачи с таким ID[/red]")
+            else:
+                console.print("[green]Задача удалена![/green]")
 
         elif command == "clear_done":
             manager.clear_done_tasks()
@@ -46,6 +50,8 @@ if __name__ == "__main__":
                 manager.check(id)
             except TaskNotFoundError:
                 console.print("[red]Нет задачи с таким ID[/red]")
+            else:
+                console.print("[green]Статус задачи изменён![/green]")
 
         elif command == "change":
             try:
@@ -54,9 +60,11 @@ if __name__ == "__main__":
                     "Введи новое название (enter чтобы оставить)"
                 )
                 new_priority: str = Prompt.ask("Введи приоритет (enter чтобы оставить)")
-                manager.change_task(id, new_title, int(new_priority))
+                manager.change_task(id, new_title, new_priority)
             except TaskNotFoundError:
                 console.print("[red]Нет задачи с таким ID[/red]")
+            else:
+                console.print("[green]Задача изменена![/green]")
 
         elif command == "stop":
             break
