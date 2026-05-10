@@ -14,7 +14,9 @@ class JSONStorage:
     def save(self, tasks: List[Task]) -> None:
         """Сохранить задачи в файл"""
         with open(self.filename, "w", encoding="utf-8") as f:
-            json.dump([task.model_dump() for task in tasks], f, indent=4)
+            json.dump(
+                [task.model_dump() for task in tasks], f, indent=4, ensure_ascii=False
+            )
 
     def load(self) -> List[Task]:
         """Загрузить задачи из файла"""
